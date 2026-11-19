@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>說到還是做到 Wiki</title>
+<meta name="description" content="用 LLM Wiki 整理 7 篇文獻：企業永續作為是象徵（說到）還是實質（做到），附教學簡報。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
+  <a class="brand" href="#/">
+    <span class="brand-mark">永</span>
+    <span class="brand-text">
+      <strong>說到還是做到 Wiki</strong>
+      <small>企業永續作為：象徵 vs 實質</small>
+    </span>
+  </a>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="search">
+      <input id="search" type="search" placeholder="搜尋頁面標題或內容…" autocomplete="off">
+    </div>
+    <nav id="nav"><p class="muted">載入目錄中…</p></nav>
+    <div class="sidebar-foot">
+      <a href="slides/">🎞 教學簡報</a>
+      <a href="#/AGENTS">📘 AGENTS.md：給 AI 的工作規則</a>
+      <a href="#/workflow">🔁 Loop / Graph 與檢查</a>
+      <a href="#/raw">🗂 原始資料清單</a>
+    </div>
+  </aside>
+
+  <main class="content" id="content">
+    <p class="muted">載入中…</p>
+  </main>
+
+  <aside class="toc" id="toc"></aside>
+</div>
+
+<script src="assets/vendor/marked.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

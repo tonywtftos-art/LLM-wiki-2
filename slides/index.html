@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>說到還是做到</title>
+<meta name="description" content="教學簡報：企業的永續作為，哪些是象徵（說到），哪些是實質（做到）。內容來自永續作為 LLM Wiki。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f1e8; --paper:#fffdf7; --ink:#1c2420; --soft:#5a645f; --line:#ddd8c8;
+  --talk:#c2512f; --talk-soft:#f8e3da; --walk:#1f5e4a; --walk-soft:#dcebe3; --gold:#a77a12; --gold-soft:#f6ecd2;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --serif:"Noto Serif TC","Songti TC",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121614; --paper:#1a201d; --ink:#e7ece9; --soft:#a5b0aa; --line:#2e3632;
+  --talk:#f08a68; --talk-soft:#3a241c; --walk:#7cc3a5; --walk-soft:#1c3329; --gold:#e2c97a; --gold-soft:#332b17;}}
+:root[data-theme="dark"]{
+  --bg:#121614; --paper:#1a201d; --ink:#e7ece9; --soft:#a5b0aa; --line:#2e3632;
+  --talk:#f08a68; --talk-soft:#3a241c; --walk:#7cc3a5; --walk-soft:#1c3329; --gold:#e2c97a; --gold-soft:#332b17;}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--sans)}
+body{overflow:hidden}
+a{color:var(--walk)}
+.deck{position:fixed;inset:0;display:grid;place-items:center;padding:16px}
+.slide{display:none;width:min(1100px,100%);height:min(680px,calc(100vh - 92px));background:var(--paper);border:1px solid var(--line);
+  border-radius:18px;padding:44px 56px 20px;position:relative;overflow:auto;box-shadow:0 10px 40px rgba(30,40,35,.08)}
+.slide.on{display:flex;flex-direction:column;animation:in .35s ease}
+.slide.on>*{flex-shrink:0}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.16em;color:var(--soft);margin:0 0 10px}
+h1,h2{font-family:var(--serif);font-weight:900;margin:0 0 18px;line-height:1.3}
+h1{font-size:clamp(34px,5.4vw,60px)}
+h2{font-size:clamp(25px,3.4vw,38px)}
+p,li{font-size:clamp(16px,1.75vw,20px);line-height:1.75}
+ul{padding-left:1.2em;margin:8px 0}
+li{margin:4px 0}
+dfn{font-style:normal;font-weight:700;border-bottom:2px solid var(--gold)}
+.def{display:block;font-size:.88em;color:var(--soft);margin-top:2px}
+.talk{color:var(--talk);font-weight:700}.walk{color:var(--walk);font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:var(--bg)}
+.card h3{margin:0 0 8px;font-size:clamp(17px,1.9vw,21px)}
+.card.t{background:var(--talk-soft);border-color:transparent}.card.w{background:var(--walk-soft);border-color:transparent}.card.g{background:var(--gold-soft);border-color:transparent}
+q,blockquote{font-family:Georgia,"Times New Roman",serif;font-style:italic}
+blockquote{margin:10px 0;padding:12px 18px;border-left:4px solid var(--line);font-size:clamp(15px,1.6vw,18px);line-height:1.6;color:var(--ink)}
+.t blockquote{border-color:var(--talk)}.w blockquote{border-color:var(--walk)}
+.big{font-size:clamp(20px,2.4vw,28px);font-weight:700;line-height:1.6}
+.formula{font-family:var(--serif);font-size:clamp(24px,3.4vw,40px);font-weight:900;text-align:center;margin:18px 0}
+.src{margin:auto 0 0;padding-top:8px;font-size:12.5px;color:var(--soft);border-top:1px dashed var(--line);padding-top:8px}
+.src a{color:var(--soft)}
+table{border-collapse:collapse;width:100%;font-size:clamp(14px,1.55vw,17px)}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;line-height:1.55}
+th{color:var(--soft);font-weight:700}
+.bar{display:flex;align-items:center;gap:10px;margin:6px 0}
+.bar span{flex:0 0 7.5em;font-size:clamp(14px,1.5vw,17px)}
+.bar i{display:block;height:22px;border-radius:6px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 9px;border-radius:99px;background:var(--gold-soft);color:var(--gold)}
+/* paper slides */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin-top:4px}
+.pgrid .f{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.pgrid .f b{display:block;font-size:13px;letter-spacing:.08em;color:var(--soft);margin-bottom:4px}
+.pgrid .f p{margin:0;font-size:clamp(15px,1.6vw,18px);line-height:1.65}
+.take{margin:14px 0 0;padding:10px 16px;border-radius:10px;background:var(--walk-soft);font-weight:700;font-size:clamp(15px,1.65vw,19px);line-height:1.6}
+.paper h2{font-size:clamp(23px,3vw,34px);margin-bottom:12px}
+.chain{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:s}
+.chain .step{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px 14px 12px}
+.chain .step:not(:last-child)::after{content:"→";position:absolute;right:-13px;top:42%;font-weight:900;color:var(--soft)}
+.chain h3{margin:6px 0;font-size:clamp(16px,1.7vw,19px)}
+.chain p{margin:0;font-size:clamp(14px,1.45vw,16.5px);line-height:1.6}
+.no{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--talk);color:#fff;font-weight:900;font-size:14px}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.flow .fs{background:var(--bg);border:1px solid var(--line);border-left:5px solid var(--walk);border-radius:10px;padding:12px 14px}
+.flow .fs b{display:block;font-size:clamp(16px,1.7vw,19px)}
+.flow .fs span{display:block;margin-top:4px;font-size:14px;color:var(--soft);line-height:1.55}
+.tight .card{padding:12px 16px}.tight .card h3{margin-bottom:4px}.tight .card p{margin:0;font-size:clamp(14px,1.5vw,16.5px);line-height:1.6}
+.note{font-size:clamp(14px,1.5vw,16.5px);color:var(--soft);margin:8px 0}
+/* quiz */
+.qz{max-width:820px}
+.qz blockquote{font-size:clamp(17px,2vw,22px)}
+.opts{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.opts button{font:inherit;font-size:16px;padding:9px 18px;border-radius:10px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.opts button:hover{border-color:var(--walk)}
+.opts button.right{background:var(--walk-soft);border-color:var(--walk)}
+.opts button.wrong{background:var(--talk-soft);border-color:var(--talk)}
+.fb{min-height:3.4em;font-size:16px;line-height:1.6;color:var(--soft)}
+.qnav{display:flex;gap:10px;align-items:center;margin-top:6px;font-size:14px;color:var(--soft)}
+.qnav button{font:inherit;font-size:14px;padding:6px 14px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+/* chrome */
+.ctl{position:fixed;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;justify-content:center;gap:14px;font-size:14px;color:var(--soft)}
+.ctl button{font:inherit;width:42px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;font-size:18px}
+.prog{position:fixed;left:0;top:0;height:4px;background:var(--walk);transition:width .3s}
+.home{position:fixed;top:12px;right:16px;font-size:13px;color:var(--soft);text-decoration:none;z-index:2}
+@media (min-width:761px) and (max-height:820px){
+  .deck{padding:10px 16px 52px}
+  .slide{height:calc(100vh - 66px);padding:26px 44px 14px}
+  .ctl{height:48px}
+  .kicker{margin-bottom:6px}
+  h1{font-size:clamp(30px,4.4vw,48px);margin-bottom:12px}
+  h2{font-size:clamp(22px,2.7vw,30px);margin-bottom:12px}
+  .paper h2{font-size:clamp(21px,2.5vw,28px);margin-bottom:10px}
+  p,li{font-size:clamp(15px,1.45vw,17px);line-height:1.6}
+  .pgrid{gap:10px 14px}.pgrid .f{padding:10px 14px}.pgrid .f p{font-size:clamp(14px,1.4vw,16px);line-height:1.55}
+  .take{margin-top:10px;padding:8px 14px;font-size:clamp(14px,1.45vw,16.5px)}
+  .card{padding:12px 16px}.card h3{margin-bottom:4px}
+  th,td{padding:5px 10px}
+  .chain .step{padding:10px 12px}
+  .big{font-size:clamp(18px,2vw,23px)}
+  ul,ol{margin:4px 0}
+}
+@media (max-width:760px){
+  .deck{padding:42px 12px 64px;place-items:start center}
+  .slide{height:calc(100vh - 110px);padding:26px 20px 24px;border-radius:14px}
+  .card{padding:14px 16px}
+  .grid2,.grid3,.pgrid,.chain,.flow{grid-template-columns:1fr}
+  .chain .step::after{display:none}
+  .bar span{flex-basis:6em}
+}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<a class="home" href="../">← 回到 Wiki</a>
+<main class="deck" id="deck">
+
+<!-- 1 封面 -->
+<section class="slide" id="s1" data-role="cover" data-src="overview">
+  <p class="kicker">永續作為 LLM WIKI ・ 教學簡報</p>
+  <h1>公司說的環保，<br>是真的嗎？</h1>
+  <p class="big">企業的<span class="talk"><dfn>象徵</dfn>（說到）</span>與<span class="walk"><dfn>實質</dfn>（做到）</span>永續作為</p>
+  <p>這份簡報分三段：</p>
+  <ol>
+    <li>為什麼公司會只說不做</li>
+    <li>7 篇學術文獻，一篇一頁</li>
+    <li>把文獻串起來：共識與矛盾</li>
+  </ol>
+  <p class="src">出處：<a href="../#/overview">專案全貌</a>。整理自 7 篇學術文獻。</p>
+</section>
+
+<!-- 2 名詞 -->
+<section class="slide" id="s2" data-role="terms" data-src="concepts/symbolic-vs-substantive">
+  <p class="kicker">先認識兩個關鍵字</p>
+  <h2>象徵 vs 實質</h2>
+  <div class="grid2">
+    <div class="card t"><h3>象徵（symbolic）＝做給別人看</h3>
+      <p>表態、承諾、拿證書、設委員會。外界覺得公司很環保，但營運沒有真的改變。</p></div>
+    <div class="card w"><h3>實質（substantive）＝真的去做</h3>
+      <p>換設備、改流程、付出成本，而且看得到改變。</p></div>
+  </div>
+  <p>注意兩件事：</p>
+  <ul>
+    <li>象徵不等於說謊。說的可能是真的，只是沒有對應的行動。</li>
+    <li>一家公司可以兩種都有，研究者常把它看成一條光譜。</li>
+  </ul>
+  <p class="src">出處：<a href="../#/concepts/symbolic-vs-substantive">象徵 vs 實質</a></p>
+</section>
+
+<!-- 3 動機 -->
+<section class="slide" id="s3" data-role="motive" data-src="syntheses/why-talk-not-walk,concepts/legitimacy-theory">
+  <p class="kicker">背景與動機</p>
+  <h2>為什麼公司會只說不做？</h2>
+  <div class="chain">
+    <div class="step"><span class="no">1</span><h3>需要社會認可</h3>
+      <p><dfn>合法性</dfn>：社會覺得公司做的事恰當、值得支持。沒有它，客戶和投資人會離開。</p></div>
+    <div class="step"><span class="no">2</span><h3>說便宜，做貴</h3>
+      <p>出報告、喊口號花費固定；換設備、改流程要花大錢。</p></div>
+    <div class="step"><span class="no">3</span><h3>外人很難看穿</h3>
+      <p><dfn>稽核</dfn>（外部人員定期來檢查）一年才幾次。公司內部怎麼做，外人不知道。</p></div>
+    <div class="step"><span class="no">4</span><h3>說就足以過關</h3>
+      <p>客戶和社會如果只看證書、報告，公司就沒有理由多做。</p></div>
+  </div>
+  <p class="take">所以，只要沒人看穿，「只說」是最省錢的選擇。接下來 7 篇文獻，分別研究這個選擇的不同面向。</p>
+  <p class="src">出處：<a href="../#/syntheses/why-talk-not-walk">為什麼公司會只說不做？</a>（Hrasky pp.175–176；Christmann &amp; Taylor p.864, p.873；Wickert p.1184；Iatridis &amp; Kesidou p.873）</p>
+</section>
+
+<!-- 4 Hrasky -->
+<section class="slide paper" id="s4" data-role="paper" data-paper="hrasky-2012" data-src="sources/hrasky-2012">
+  <p class="kicker">文獻 1／7 ・ Hrasky (2012) ・ Accounting, Auditing &amp; Accountability Journal</p>
+  <h2>報告書裡，公司是在說還是在做？</h2>
+  <div class="pgrid">
+    <div class="f"><b>研究問題</b><p>談到碳排放時，公司寫的是表態還是行動？</p></div>
+    <div class="f"><b>怎麼研究</b><p>澳洲前 50 大公司，比較 2005 和 2008 年的報告書，把句子一句一句分類。</p></div>
+    <div class="f"><b>怎麼分象徵 vs 實質</b><p><span class="talk">象徵</span>：表態、未來目標、得獎。<br><span class="walk">實質</span>：內部行動、外部合作、幫別人減碳。<br>只報排放量，兩邊都不算。</p></div>
+    <div class="f"><b>發現</b><p>談碳的句子變多了。高碳產業的行動句，從不到 20% 升到近 28%。低碳產業（多為金融業）偏向象徵。</p></div>
+  </div>
+  <p class="take">帶走這一句：讀到一句話，先問「它有沒有說做了什麼」。</p>
+  <p class="src">出處：<a href="../#/sources/hrasky-2012">Hrasky (2012)</a> pp.174, 183–185, 192</p>
+</section>
+
+<!-- 5 Wickert -->
+<section class="slide paper" id="s5" data-role="paper" data-paper="wickert-2016" data-src="sources/wickert-2016">
+  <p class="kicker">文獻 2／7 ・ Wickert, Scherer &amp; Spence (2016) ・ Journal of Management Studies</p>
+  <h2>為什麼大公司常常說得多、做得少？</h2>
+  <div class="pgrid">
+    <div class="f"><b>研究問題</b><p>公司規模會不會影響它選擇「說」還是「做」？</p></div>
+    <div class="f"><b>怎麼研究</b><p>理論文章。從組織成本推導出 2 個命題，沒有蒐集資料。</p></div>
+    <div class="f"><b>怎麼分象徵 vs 實質</b><p><span class="talk">talk（說）</span>：報告、官網、廣告。<br><span class="walk">walk（做）</span>：改變核心的生產和管理流程。</p></div>
+    <div class="f"><b>發現</b><p>「說」是固定成本，公司越大越划算。「做」是變動成本，公司越大越貴。所以大公司說多做少，小公司做多說少。</p></div>
+  </div>
+  <p class="take">帶走這一句：只看報告書，可能冤枉了「做了卻沒說」的小公司。</p>
+  <p class="src">出處：<a href="../#/sources/wickert-2016">Wickert et al. (2016)</a> pp.1169–1170, 1183–1184</p>
+</section>
+
+<!-- 6 Christmann -->
+<section class="slide paper" id="s6" data-role="paper" data-paper="christmann-taylor-2006" data-src="sources/christmann-taylor-2006">
+  <p class="kicker">文獻 3／7 ・ Christmann &amp; Taylor (2006) ・ Journal of International Business Studies</p>
+  <h2>拿到國際認證，平常就有照做嗎？</h2>
+  <div class="pgrid">
+    <div class="f"><b>研究問題</b><p>什麼讓有認證的公司真的照標準做？</p></div>
+    <div class="f"><b>怎麼研究</b><p>問卷調查中國 172 家供應商。它們都有 <dfn>ISO</dfn> 9000 認證（國際標準，證明公司照固定流程做事）。</p></div>
+    <div class="f"><b>怎麼分象徵 vs 實質</b><p>看日常有沒有使用標準的做法。例如：文件平常有沒有用？稽核前是不是臨時準備？</p></div>
+    <div class="f"><b>發現</b><p>客戶重視、親自監督、容易換掉供應商，公司就比較會真的做。客戶只看證書，公司就比較會做表面。</p></div>
+  </div>
+  <p class="take">帶走這一句：有人真的來看，公司才會真的做。</p>
+  <p class="src">出處：<a href="../#/sources/christmann-taylor-2006">Christmann &amp; Taylor (2006)</a> pp.864, 870–873</p>
+</section>
+
+<!-- 7 Iatridis -->
+<section class="slide paper" id="s7" data-role="paper" data-paper="iatridis-kesidou-2018" data-src="sources/iatridis-kesidou-2018">
+  <p class="kicker">文獻 4／7 ・ Iatridis &amp; Kesidou (2018) ・ Journal of Business Ethics</p>
+  <h2>沒人監督的時候，誰還會真的做？</h2>
+  <div class="pgrid">
+    <div class="f"><b>研究問題</b><p>希臘經濟危機時監督變弱，什麼讓公司還是認真落實環境認證？</p></div>
+    <div class="f"><b>怎麼研究</b><p>深度訪談 45 家希臘製造業，它們都有 ISO 14001 環境管理認證。</p></div>
+    <div class="f"><b>怎麼分象徵 vs 實質</b><p>「計畫、執行、檢查、改善」四步有沒有每天都在做。只在稽核前補資料，就是象徵。</p></div>
+    <div class="f"><b>發現</b><p>28 位受訪者因為客戶要求才拿證書，把它當成勾選框框。想外銷、想省成本的公司，會真的去做。</p></div>
+  </div>
+  <p class="take">帶走這一句：外面沒人逼時，要看公司自己有沒有好處。</p>
+  <p class="src">出處：<a href="../#/sources/iatridis-kesidou-2018">Iatridis &amp; Kesidou (2018)</a> pp.860–861, 864, 872–873</p>
+</section>
+
+<!-- 8 Rodrigue -->
+<section class="slide paper" id="s8" data-role="paper" data-paper="rodrigue-2013" data-src="sources/rodrigue-2013">
+  <p class="kicker">文獻 5／7 ・ Rodrigue, Magnan &amp; Cho (2013) ・ Journal of Business Ethics</p>
+  <h2>董事會設了環境委員會，環境有變好嗎？</h2>
+  <div class="pgrid">
+    <div class="f"><b>研究問題</b><p>公司的環境治理制度，是實質還是象徵？</p></div>
+    <div class="f"><b>怎麼研究</b><p>美國高污染產業共 219 筆資料，加上 5 位董事的訪談。</p></div>
+    <div class="f"><b>怎麼分象徵 vs 實質</b><p>看結果：環境績效有沒有變好。有改善是實質，只是讓人覺得有在做是象徵。</p></div>
+    <div class="f"><b>發現</b><p>委員會、懂環境的董事，和違規、環保投資都沒有顯著關係。董事說，委員會是在防風險。</p></div>
+  </div>
+  <p class="take">帶走這一句：有制度，不等於有效果。董事的原話：<q>you can sleep soundly</q>（大家可以安心睡覺）。</p>
+  <p class="src">出處：<a href="../#/sources/rodrigue-2013">Rodrigue et al. (2013)</a> pp.107, 112–113, 120–125</p>
+</section>
+
+<!-- 9 Walker & Wan -->
+<section class="slide paper" id="s9" data-role="paper" data-paper="walker-wan-2012" data-src="sources/walker-wan-2012">
+  <p class="kicker">文獻 6／7 ・ Walker &amp; Wan (2012) ・ Journal of Business Ethics</p>
+  <h2>只說不做，會被市場懲罰嗎？</h2>
+  <div class="pgrid">
+    <div class="f"><b>研究問題</b><p>官網上的「說」和「做」，和公司賺錢有沒有關係？</p></div>
+    <div class="f"><b>怎麼研究</b><p>加拿大 103 家高污染產業公司。把官網的說和做各打分數，再比較 <dfn>ROA</dfn>（資產報酬率：用資產賺了多少錢）。</p></div>
+    <div class="f"><b>怎麼分象徵 vs 實質</b><p><span class="walk">已經做了</span>是實質，例如煉油廠比 1990 年節能 15%。<span class="talk">承諾、未來計畫</span>是象徵。</p></div>
+    <div class="f"><b>發現</b><p>只說的公司，財務較差。<dfn>漂綠</dfn>（說得比做得多）也較差。真的做的公司，沒有顯著影響。</p></div>
+  </div>
+  <p class="take">帶走這一句：與其寫未來計畫，不如寫已經做了什麼。</p>
+  <p class="src">出處：<a href="../#/sources/walker-wan-2012">Walker &amp; Wan (2012)</a> pp.227, 231–234, 238</p>
+</section>
+
+<!-- 10 Donia -->
+<section class="slide paper" id="s10" data-role="paper" data-paper="donia-tetrault-sirsly-2016" data-src="sources/donia-tetrault-sirsly-2016">
+  <p class="kicker">文獻 7／7 ・ Donia &amp; Tetrault Sirsly (2016) ・ European Management Journal</p>
+  <h2>員工看得出公司是在作秀嗎？</h2>
+  <div class="pgrid">
+    <div class="f"><b>研究問題</b><p>員工怎麼判斷公司做公益和環保是真心，還是作秀？</p></div>
+    <div class="f"><b>怎麼研究</b><p>理論文章。整合三個領域的研究，提出 11 組命題，還沒有實證。</p></div>
+    <div class="f"><b>怎麼分象徵 vs 實質</b><p>看<b>動機</b>：為了社會是實質，為了公司自己是象徵。⚠️ 和其他 6 篇的分法不同。</p></div>
+    <div class="f"><b>發現</b><p>員工信任公司、覺得目標具體、言行一致，就會認為是真心，也更認同公司。覺得在作秀，就沒有效果，甚至反感。</p></div>
+  </div>
+  <p class="take">帶走這一句：象徵要被當真才有用，被看穿就適得其反。</p>
+  <p class="src">出處：<a href="../#/sources/donia-tetrault-sirsly-2016">Donia &amp; Tetrault Sirsly (2016)</a> pp.233–239</p>
+</section>
+
+<!-- 11 總整 -->
+<section class="slide" id="s11" data-role="synthesis" data-src="syntheses/literature-synthesis">
+  <p class="kicker">總整</p>
+  <h2>把 7 篇串成一條邏輯</h2>
+  <div class="flow">
+    <div class="fs"><b>① 社會關注環境</b></div>
+    <div class="fs"><b>② 公司需要認可</b><span>Hrasky</span></div>
+    <div class="fs"><b>③ 說便宜，做貴</b><span>Wickert・Christmann &amp; Taylor</span></div>
+    <div class="fs"><b>④ 什麼推向「做」</b><span>Christmann &amp; Taylor：監督<br>Iatridis &amp; Kesidou：外銷、省錢</span></div>
+    <div class="fs"><b>⑤ 只說的後果</b><span>Walker &amp; Wan：財務<br>Donia：員工</span></div>
+    <div class="fs"><b>⑥ 怎麼辨識</b><span>Hrasky：文字<br>Rodrigue：結果</span></div>
+  </div>
+  <p class="take">一句話：公司需要認可，「說」比較便宜，所以除非有人檢查、或做了有好處，不然常常只停在「說」。</p>
+  <p class="src">出處：<a href="../#/syntheses/literature-synthesis">文獻總整</a></p>
+</section>
+
+<!-- 12 共識 -->
+<section class="slide" id="s12" data-role="consensus" data-src="syntheses/literature-synthesis">
+  <p class="kicker">相同之處</p>
+  <h2>文獻的 5 個共識</h2>
+  <div class="grid2 tight">
+    <div class="card"><h3>1. 說和做可以分開</h3><p>有報告、證書、委員會，不代表有做。</p></div>
+    <div class="card"><h3>2. 做比較貴</h3><p>這是公司選擇只說的主要原因。</p></div>
+    <div class="card"><h3>3. 監督有用</h3><p>有人檢查、會懲罰，公司比較會真的做。</p></div>
+    <div class="card"><h3>4. 不是二選一</h3><p>同一家公司可以又說又做。</p></div>
+    <div class="card"><h3>5. 只說可能有反效果</h3><p>財務表現較差，員工也可能反感。</p></div>
+  </div>
+  <p class="src">出處：<a href="../#/syntheses/literature-synthesis">文獻總整：共識</a></p>
+</section>
+
+<!-- 13 矛盾 -->
+<section class="slide" id="s13" data-role="contradiction" data-src="syntheses/literature-synthesis,concepts/symbolic-vs-substantive">
+  <p class="kicker">不同之處</p>
+  <h2>文獻的矛盾與分歧</h2>
+  <p><b>矛盾 1：什麼才算「做到」？</b>7 篇用了四種不同的判斷依據：</p>
+  <table>
+    <tr><th>依據</th><th>看什麼</th><th>文獻</th></tr>
+    <tr><td>文字</td><td>報告、官網寫了什麼</td><td>Hrasky、Walker &amp; Wan、Wickert</td></tr>
+    <tr><td>日常</td><td>平常有沒有照做</td><td>Christmann &amp; Taylor、Iatridis &amp; Kesidou</td></tr>
+    <tr><td>結果</td><td>環境績效有沒有變好</td><td>Rodrigue et al.</td></tr>
+    <tr><td>動機</td><td>為了社會還是為了自己</td><td>Donia &amp; Tetrault Sirsly</td></tr>
+  </table>
+  <p class="note">例：希臘公司為了省錢每天照做。看日常是實質；看 Donia 的動機，可能算象徵。</p>
+  <div class="grid3 tight">
+    <div class="card g"><h3>矛盾 2：外部壓力有用嗎？</h3><p>有人說壓力導致做表面，有人說壓力越強越會做。Iatridis：壓力弱時，看內部動機。</p></div>
+    <div class="card g"><h3>矛盾 3：象徵有用嗎？</h3><p>Donia：被當真就有用。Walker &amp; Wan：只說的財務較差。關鍵可能在有沒有被看穿（本 wiki 的整理）。</p></div>
+    <div class="card g"><h3>分歧 4：小公司</h3><p>只看報告的研究樣本都是大公司，可能冤枉做了沒說的小公司（本 wiki 的整理）。</p></div>
+  </div>
+  <p class="src">出處：<a href="../#/syntheses/literature-synthesis">文獻總整：矛盾</a>；<a href="../#/concepts/symbolic-vs-substantive">象徵 vs 實質</a></p>
+</section>
+
+<!-- 14 測驗 -->
+<section class="slide" id="s14" data-role="quiz" data-src="sources/hrasky-2012,sources/iatridis-kesidou-2018">
+  <p class="kicker">小測驗</p>
+  <h2>這句是象徵、實質，還是都不算？</h2>
+  <div class="qz" id="quiz"></div>
+  <p class="src">題目原句出處：<a href="../#/sources/hrasky-2012">Hrasky (2012)</a> Table I, pp.184–185；<a href="../#/sources/iatridis-kesidou-2018">Iatridis &amp; Kesidou (2018)</a> p.872</p>
+  <div hidden>
+    <q>Our ultimate goal is to have no carbon emissions released to the atmosphere</q>
+    <q>The $A30 million plant … reduce greenhouse gas emission by 250,000 tonnes of carbon dioxide equivalent per year</q>
+    <q>The average CO2 emissions from our vehicle fleet is 9.2CO2e per vehicle</q>
+    <q>We were included in the 2004 Climate Leadership Index</q>
+    <q>If we didn't have it [ISO 14001 certification] we would have problems. Now that we have it, it does not mean that we see benefits from it.</q>
+  </div>
+</section>
+
+<!-- 15 回顧 -->
+<section class="slide" id="s15" data-role="recap" data-src="overview,concepts/measuring">
+  <p class="kicker">重點回顧</p>
+  <h2>三句話＋五個問題</h2>
+  <div class="grid2">
+    <div><ol class="big">
+      <li><span class="talk">說</span>很便宜，<span class="walk">做</span>很貴。</li>
+      <li>有人檢查、或做了有好處，公司才會真的做。</li>
+      <li>證書、委員會、漂亮的報告，都不等於做到。</li>
+    </ol></div>
+    <div class="card"><h3>讀到一句環保宣言，問自己：</h3><ol>
+      <li>有具體行動嗎？</li>
+      <li>是已經做了，還是將要做？</li>
+      <li>有數字可以驗證嗎？</li>
+      <li>只報排放量？那不算行動。</li>
+      <li>只有證書或委員會？那也不代表有做。</li>
+    </ol></div>
+  </div>
+  <p>延伸閱讀：7 篇文獻的白話整理都在 <a href="../">永續作為 LLM Wiki</a>。</p>
+  <p class="src">出處：<a href="../#/overview">專案全貌</a>、<a href="../#/concepts/measuring">怎麼判斷？</a></p>
+</section>
+
+</main>
+<div class="ctl"><button id="prev" aria-label="上一頁">‹</button><span id="pg">1 / 15</span><button id="next" aria-label="下一頁">›</button></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),i=0;
+  function show(n){i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('on',k===i)});
+    document.getElementById('pg').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+    if(location.hash!=='#'+(i+1))history.replaceState(null,'','#'+(i+1));}
+  var h=parseInt(location.hash.slice(1),10);show(h?h-1:0);
+  document.getElementById('prev').onclick=function(){show(i-1)};
+  document.getElementById('next').onclick=function(){show(i+1)};
+  document.addEventListener('keydown',function(e){
+    if(e.target.tagName==='BUTTON'&&(e.key===' '||e.key==='Enter'))return;
+    if(['ArrowRight','PageDown',' '].indexOf(e.key)>-1){e.preventDefault();show(i+1)}
+    if(['ArrowLeft','PageUp'].indexOf(e.key)>-1){e.preventDefault();show(i-1)}});
+  var x0=null;document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>60)show(dx<0?i+1:i-1);x0=null});
+
+  // 小測驗：題目原句取自文獻（見上方 hidden 區塊），答案依 Hrasky Table I 與 Iatridis & Kesidou 的分類
+  var Q=[
+    {q:"Our ultimate goal is to have no carbon emissions released to the atmosphere",a:"象徵",why:"只說了未來的目標，沒有對應的行動。Hrasky 歸為「願景目標」，屬於象徵。"},
+    {q:"The $A30 million plant … reduce greenhouse gas emission by 250,000 tonnes of carbon dioxide equivalent per year",a:"實質",why:"說出了做了什麼（蓋發電廠）、花多少錢、減多少碳。Hrasky 歸為「內部行動」。"},
+    {q:"The average CO2 emissions from our vehicle fleet is 9.2CO2e per vehicle",a:"都不算",why:"這是陷阱題！只報排放數字，沒有說做了什麼。Hrasky 歸為「描述性陳述」，不算行動。"},
+    {q:"We were included in the 2004 Climate Leadership Index",a:"象徵",why:"得獎或入選指數是外界的認可，不是行動本身。Hrasky 歸為「獎項認可」，屬於象徵。"},
+    {q:"If we didn't have it [ISO 14001 certification] we would have problems. Now that we have it, it does not mean that we see benefits from it.",a:"象徵",why:"受訪者只是因為客戶要求才拿證書，把它當勾選框框。Iatridis & Kesidou 指出這類公司不想實質落實。"}
+  ];
+  var box=document.getElementById('quiz'),k=0,score=0,done=[];
+  function render(){var it=Q[k];
+    box.innerHTML='<p class="qnav">第 '+(k+1)+' / '+Q.length+' 題　答對 '+score+' 題</p><blockquote>'+it.q+'</blockquote>'+
+      '<div class="opts">'+['象徵','實質','都不算'].map(function(o){return '<button data-o="'+o+'">'+o+'</button>'}).join('')+'</div>'+
+      '<p class="fb" id="fb">選一個答案。</p><div class="qnav"><button id="qp">上一題</button><button id="qn">下一題</button></div>';
+    [].forEach.call(box.querySelectorAll('.opts button'),function(b){b.onclick=function(){
+      if(done[k])return;done[k]=true;var ok=b.dataset.o===it.a;if(ok)score++;
+      b.classList.add(ok?'right':'wrong');
+      if(!ok)box.querySelector('[data-o="'+it.a+'"]').classList.add('right');
+      document.getElementById('fb').innerHTML=(ok?'<b class="walk">答對了！</b>　':'<b class="talk">答案是「'+it.a+'」。</b>　')+it.why;
+      box.querySelector('.qnav').textContent='第 '+(k+1)+' / '+Q.length+' 題　答對 '+score+' 題';}});
+    document.getElementById('qp').onclick=function(){if(k>0){k--;render()}};
+    document.getElementById('qn').onclick=function(){if(k<Q.length-1){k++;render()}};
+    if(done[k]){document.getElementById('fb').textContent='這題已經作答過了。'}}
+  render();
+})();
+</script>
+</body>
+</html>
